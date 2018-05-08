@@ -1,0 +1,23 @@
+#!/bin/bash
+
+Bootstrap: docker
+From: nipype/nipype:latest
+
+%labels
+  Maintainer Natalia
+  Version v1.0
+
+%post
+  # Install nano
+  apt-get update
+  apt-get install nano
+
+  # Set up Python environment
+  CONDA_ENV=/opt/conda/bin
+  export PATH=$CONDA_ENV:$PATH
+  chmod -R 777 $CONDA_ENV
+
+  # Activate conda environment
+  conda activate neuro
+  conda install seaborn
+  pip install pybids
